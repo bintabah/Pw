@@ -29,8 +29,8 @@ jobs:
             flyctl volumes destroy "$id" --yes 2>/dev/null || true
           done
 
-          echo "Création d'un volume propre..."
-          flyctl volumes create mysql_data --region cdg --size 1 --app club-sportif-db --yes
+          echo "Création d'un volume propre (mariadb_data)..."
+          flyctl volumes create mariadb_data --region cdg --size 1 --app club-sportif-db --yes
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
@@ -44,6 +44,11 @@ jobs:
 
       - name: Attendre que MariaDB soit prêt (2 min)
         run: sleep 120
+
+      - name: Vérifier les logs MariaDB
+        run: flyctl logs --app club-sportif-db --no-tail 2>/dev/null || true
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
   setup-mvc:
     name: "2. Déployer PHP MVC"

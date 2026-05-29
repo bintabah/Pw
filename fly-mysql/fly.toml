@@ -10,7 +10,7 @@ primary_region = "cdg"
   MARIADB_ALLOW_EMPTY_ROOT_PASSWORD = "yes"
 
 [[mounts]]
-  source = "mysql_data"
+  source = "mariadb_data"
   destination = "/var/lib/mysql"
   initial_size = "1gb"
 
