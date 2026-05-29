@@ -13,6 +13,12 @@ primary_region = "cdg"
   destination = "/var/lib/mysql"
   initial_size = "1gb"
 
+[[services]]
+  internal_port = 3306
+  protocol = "tcp"
+  auto_stop_machines = false
+  min_machines_running = 1
+
 [[vm]]
   memory = "256mb"
   cpu_kind = "shared"
