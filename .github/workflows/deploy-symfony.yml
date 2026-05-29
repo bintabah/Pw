@@ -1,0 +1,23 @@
+name: "Deploy — Symfony vers Fly.io"
+
+on:
+  push:
+    branches: [Symfony]
+    paths-ignore:
+      - "**.md"
+      - ".github/workflows/setup.yml"
+
+jobs:
+  deploy:
+    name: Build & Deploy Symfony
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Déployer sur Fly.io
+        working-directory: ./projetsymfony
+        run: fly deploy --app club-sportif-symfony --remote-only
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
