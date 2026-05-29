@@ -3,11 +3,10 @@ set -e
 
 echo "Fixing cache/log permissions..."
 mkdir -p /var/www/html/var/cache/prod /var/www/html/var/log
-chown -R www-data:www-data /var/www/html/var/
-chmod -R 775 /var/www/html/var/
+chmod -R 777 /var/www/html/var/
 
 echo "Warming up Symfony cache..."
-sudo -u www-data php bin/console cache:warmup --env=prod 2>/dev/null || php bin/console cache:warmup --env=prod
+php bin/console cache:warmup --env=prod
 
 echo "Waiting for MariaDB to be ready..."
 MAX_RETRIES=30
