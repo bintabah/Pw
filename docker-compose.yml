@@ -25,7 +25,8 @@ services:
         condition: service_healthy
 
   symfony:
-    build: ../Symfony/projetsymfony
+    build:
+      context: https://github.com/bintabah/Pw.git#Symfony:projetsymfony
     ports:
       - "8081:80"
     environment:
