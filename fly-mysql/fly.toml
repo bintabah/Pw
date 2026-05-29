@@ -7,6 +7,7 @@ primary_region = "cdg"
 [env]
   MYSQL_DATABASE = "club"
   MYSQL_ALLOW_EMPTY_PASSWORD = "yes"
+  MARIADB_ALLOW_EMPTY_ROOT_PASSWORD = "yes"
 
 [[mounts]]
   source = "mysql_data"
@@ -18,6 +19,11 @@ primary_region = "cdg"
   protocol = "tcp"
   auto_stop_machines = false
   min_machines_running = 1
+
+  [[services.tcp_checks]]
+    interval = "15s"
+    timeout  = "5s"
+    grace_period = "60s"
 
 [[vm]]
   memory = "256mb"

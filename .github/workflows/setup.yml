@@ -85,7 +85,7 @@ jobs:
       - name: Configurer les variables d'environnement
         run: |
           flyctl secrets set \
-            DATABASE_URL="mysql://root:@club-sportif-db.internal:3306/club?serverVersion=8.0&charset=utf8mb4" \
+            DATABASE_URL="mysql://root:@club-sportif-db.internal:3306/club?serverVersion=mariadb-10.11&charset=utf8mb4" \
             APP_SECRET="${{ secrets.APP_SECRET }}" \
             APP_ENV=prod \
             APP_DEBUG=0 \
