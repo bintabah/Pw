@@ -14,16 +14,8 @@ primary_region = "cdg"
   destination = "/var/lib/mysql"
   initial_size = "1gb"
 
-[[services]]
-  internal_port = 3306
-  protocol = "tcp"
-  auto_stop_machines = false
-  min_machines_running = 1
-
-  [[services.tcp_checks]]
-    interval = "15s"
-    timeout  = "5s"
-    grace_period = "60s"
+[restart]
+  policy = "always"
 
 [[vm]]
   memory = "256mb"

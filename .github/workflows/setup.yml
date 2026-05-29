@@ -38,9 +38,12 @@ jobs:
         run: |
           cp init.sql fly-mysql/
           cd fly-mysql
-          flyctl deploy --app club-sportif-db
+          flyctl deploy --app club-sportif-db --detach
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
+      - name: Attendre que MariaDB soit prêt (2 min)
+        run: sleep 120
 
   setup-mvc:
     name: "2. Déployer PHP MVC"
