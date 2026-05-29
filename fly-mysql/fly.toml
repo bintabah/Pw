@@ -14,7 +14,7 @@ primary_region = "cdg"
   destination = "/var/lib/mysql"
   initial_size = "1gb"
 
-[restart]
+[[restart]]
   policy = "always"
 
 [[vm]]
