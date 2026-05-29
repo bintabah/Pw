@@ -19,6 +19,7 @@ RUN echo '<VirtualHost *:80>\n\
 WORKDIR /var/www/html
 COPY . .
 
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --no-interaction --optimize-autoloader
 
 RUN chown -R www-data:www-data /var/www/html
