@@ -15,15 +15,22 @@ jobs:
           curl -L https://fly.io/install.sh | sh
           echo "$HOME/.fly/bin" >> $GITHUB_PATH
 
-      - name: Créer l'app MySQL et le volume de données
+      - name: Nettoyer machines et volumes existants
         run: |
           flyctl apps create club-sportif-db --org personal 2>/dev/null || echo "App déjà existante"
-          EXISTING=$(flyctl volumes list --app club-sportif-db --json 2>/dev/null | grep -c '"name"' || echo 0)
-          if [ "$EXISTING" -eq 0 ]; then
-            flyctl volumes create mysql_data --region cdg --size 1 --app club-sportif-db --yes
-          else
-            echo "Volume déjà existant, skip"
-          fi
+
+          echo "Suppression des machines existantes..."
+          for id in $(flyctl machines list --app club-sportif-db --json 2>/dev/null | jq -r '.[].id' 2>/dev/null); do
+            flyctl machines destroy "$id" --force --app club-sportif-db 2>/dev/null || true
+          done
+
+          echo "Suppression des volumes existants..."
+          for id in $(flyctl volumes list --app club-sportif-db --json 2>/dev/null | jq -r '.[].id' 2>/dev/null); do
+            flyctl volumes destroy "$id" --yes 2>/dev/null || true
+          done
+
+          echo "Création d'un volume propre..."
+          flyctl volumes create mysql_data --region cdg --size 1 --app club-sportif-db --yes
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
