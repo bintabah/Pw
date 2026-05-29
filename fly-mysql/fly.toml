@@ -2,7 +2,7 @@ app = "club-sportif-db"
 primary_region = "cdg"
 
 [build]
-  dockerfile = "Dockerfile"
+  dockerfile = "fly-mysql/Dockerfile"
 
 [env]
   MYSQL_DATABASE = "club"
