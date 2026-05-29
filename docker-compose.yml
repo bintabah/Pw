@@ -3,13 +3,14 @@ services:
   mysql:
     image: mysql:8.0
     environment:
-      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD:-}"
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-      MYSQL_DATABASE: club
+      MYSQL_DATABASE: "${DB_NAME:-club}"
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -19,7 +20,12 @@ services:
   php-mvc:
     build: .
     ports:
-      - "8083:80"
+      - "${PHP_MVC_PORT:-8083}:80"
+    environment:
+      DB_HOST: mysql
+      DB_NAME: "${DB_NAME:-club}"
+      DB_USER: "${DB_USER:-root}"
+      DB_PASSWORD: "${DB_PASSWORD:-}"
     depends_on:
       mysql:
         condition: service_healthy
@@ -28,9 +34,11 @@ services:
     build:
       context: https://github.com/bintabah/Pw.git#Symfony:projetsymfony
     ports:
-      - "8081:80"
+      - "${SYMFONY_PORT:-8081}:80"
     environment:
-      DATABASE_URL: "mysql://root:@mysql:3306/club?serverVersion=8.0&charset=utf8mb4"
+      DATABASE_URL: "mysql://${DB_USER:-root}:${DB_PASSWORD:-}@mysql:3306/${DB_NAME:-club}?serverVersion=8.0&charset=utf8mb4"
+      APP_ENV: "${APP_ENV:-dev}"
+      APP_SECRET: "${APP_SECRET:-changeme}"
     depends_on:
       mysql:
         condition: service_healthy
@@ -38,11 +46,11 @@ services:
   phpmyadmin:
     image: phpmyadmin
     ports:
-      - "8082:80"
+      - "${PMA_PORT:-8082}:80"
     environment:
       PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: ""
+      PMA_USER: "${DB_USER:-root}"
+      PMA_PASSWORD: "${DB_PASSWORD:-}"
     depends_on:
       - mysql
 

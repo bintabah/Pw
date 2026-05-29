@@ -1,7 +1,5 @@
 <?php
-// Informations de connexion Ã  la base de donnÃ©es
-$host = "mysql"; // L'hÃ´te de la base de donnÃ©es (gÃ©nÃ©ralement "localhost")
-$database = "club"; // Le nom de la base de donnÃ©es que vous avez crÃ©Ã©e
-$username = "root"; // Votre nom d'utilisateur MySQL
-$password = ""; // Votre mot de passe MySQL
-
+$host     = getenv('DB_HOST')     ?: 'mysql';
+$database = getenv('DB_NAME')     ?: 'club';
+$username = getenv('DB_USER')     ?: 'root';
+$password = getenv('DB_PASSWORD') ?: '';
