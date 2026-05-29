@@ -26,7 +26,7 @@ class EducateurController
         $educateurs = $this->educateurDAO->listEducateurs();
 
         // Inclure la vue pour afficher la liste des éducateurs
-        include('../views/educateur/educateurListe.php');
+        include('../Views/educateur/educateurListe.php');
     }
 }
 

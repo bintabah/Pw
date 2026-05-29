@@ -21,7 +21,7 @@ class CategorieController {
         $categories = $this->categorieDAO->listCategories();
 
         // Inclure la vue pour afficher la liste des contacts
-        include('../views/categorie/categorieliste.php');
+        include('../Views/categorie/categorieliste.php');
     }
 }
 

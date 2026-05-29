@@ -21,7 +21,7 @@ class LicencieController {
         $licencies = $this->licencieDAO->listLicencies();
 
         // Inclure la vue pour afficher la liste des licenciés
-        include('../views/licencie/licencieListe.php');
+        include('../Views/licencie/licencieListe.php');
     }
     public function exportCSV() {
         $this->licencieDAO->exportLicenciesToCSV();

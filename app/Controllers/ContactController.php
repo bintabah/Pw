@@ -21,7 +21,7 @@ class ContactController {
         $contacts = $this->contactDAO->listContacts();
 
         // Inclure la vue pour afficher la liste des contacts
-        include('../views/contact/contactListe.php');
+        include('../Views/contact/contactListe.php');
     }
 }
 
