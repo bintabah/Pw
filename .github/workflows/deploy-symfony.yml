@@ -18,6 +18,14 @@ jobs:
           curl -L https://fly.io/install.sh | sh
           echo "$HOME/.fly/bin" >> $GITHUB_PATH
 
+      - name: Mettre à jour DATABASE_URL avec la bonne version MariaDB
+        run: |
+          flyctl secrets set \
+            DATABASE_URL="mysql://root:@club-sportif-db.internal:3306/club?serverVersion=mariadb-10.11.0&charset=utf8mb4" \
+            --app club-sportif-symfony
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+
       - name: Déployer sur Fly.io
         working-directory: ./projetsymfony
         run: flyctl deploy --app club-sportif-symfony --remote-only
