@@ -41,8 +41,6 @@
         <p class="font-semibold text-blue-700 mb-2">Accès démo</p>
         <p><span class="font-medium">Admin :</span> pierre.moreau@club.fr</p>
         <p><span class="font-medium">Mot de passe :</span> admin123</p>
-        <hr class="my-2 border-blue-200">
-        <p class="text-xs text-gray-500">Les autres comptes utilisent le mot de passe : <span class="font-medium">password</span></p>
     </div>
 
 </div>
